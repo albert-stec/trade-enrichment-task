@@ -1,6 +1,9 @@
-package com.verygoodbank.tes;
+package com.verygoodbank.tes.util;
 
 import jakarta.annotation.PostConstruct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.nio.file.Files;
@@ -11,8 +14,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 @Component
 public class ProductLoader {
+    private static final Logger LOG = LoggerFactory.getLogger(ProductLoader.class);
+
     private static final ConcurrentHashMap<String, String> productMap = new ConcurrentHashMap<>();
-    private static final String PRODUCT_FILE = "product.csv";
+    public static final String DEFAULT_PRODUCT_NAME = "Missing Product Name";
+
+    @Value("${product.file.name}")
+    private String PRODUCT_FILE;
 
     @PostConstruct
     public void loadProductData() {
@@ -29,6 +37,15 @@ public class ProductLoader {
     }
 
     public static String getProductName(String productId) {
-        return productMap.getOrDefault(productId, "Unknown Product");
+        if (productMap.isEmpty()) {
+            throw new IllegalStateException("Product data not loaded");
+        }
+
+        if (productMap.containsKey(productId)) {
+            return productMap.get(productId);
+        } else {
+            LOG.error("Product name not found for product id: {}", productId);
+            return DEFAULT_PRODUCT_NAME;
+        }
     }
 }
