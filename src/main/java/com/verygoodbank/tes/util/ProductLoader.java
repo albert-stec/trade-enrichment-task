@@ -24,7 +24,7 @@ public class ProductLoader {
     @PostConstruct
     public void loadProductData() {
         try {
-            Path path = Paths.get(ClassLoader.getSystemResource(PRODUCT_FILE).toURI());
+            Path path = Paths.get(PRODUCT_FILE);
             List<String> lines = Files.readAllLines(path);
             lines.forEach(line -> {
                 String[] parts = line.split(",");
