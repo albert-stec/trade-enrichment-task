@@ -9,3 +9,7 @@ public class TradeEnrichmentServiceApplication {
 		SpringApplication.run(TradeEnrichmentServiceApplication.class, args);
 	}
 }
+
+// mvn clean package
+// $> docker build --tag=enricher:latest .
+// docker run -p8080:8080 enricher:latest
