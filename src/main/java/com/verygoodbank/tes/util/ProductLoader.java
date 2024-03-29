@@ -35,7 +35,7 @@ public class ProductLoader {
         }
     }
 
-    public static String getProductName(String productId) {
+    public String getProductName(String productId) {
         if (productMap.isEmpty()) {
             throw new IllegalStateException("Product data not loaded");
         }

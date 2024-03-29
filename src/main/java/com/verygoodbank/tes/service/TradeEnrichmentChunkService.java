@@ -3,6 +3,7 @@ package com.verygoodbank.tes.service;
 import com.verygoodbank.tes.service.specification.CSVService;
 import com.verygoodbank.tes.service.specification.TradeEnrichmentService;
 import com.verygoodbank.tes.util.ProductLoader;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -12,6 +13,12 @@ import java.util.stream.Collectors;
 @Component
 public class TradeEnrichmentChunkService implements TradeEnrichmentService {
     private static final int CHUNK_SIZE = 1000; // Define your chunk size based on your requirements and resources
+
+    private final ProductLoader productLoader;
+
+    public TradeEnrichmentChunkService(ProductLoader productLoader) {
+        this.productLoader = productLoader;
+    }
 
     public List<String> process(List<String> lines) {
         List<List<String>> chunks = chunkify(lines, CHUNK_SIZE);
@@ -28,7 +35,7 @@ public class TradeEnrichmentChunkService implements TradeEnrichmentService {
         return chunk.stream()
                 .map(line -> {
                     String[] parts = line.split(",");
-                    String productName = ProductLoader.getProductName(parts[1]);
+                    String productName = productLoader.getProductName(parts[1]);
                     return parts[0] + "," + productName + "," + String.join(",", parts[2], parts[3]);
                 })
                 .collect(Collectors.toList());
