@@ -15,7 +15,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class ProductLoader {
     private static final Logger LOG = LoggerFactory.getLogger(ProductLoader.class);
-
     private static final ConcurrentHashMap<String, String> productMap = new ConcurrentHashMap<>();
     public static final String DEFAULT_PRODUCT_NAME = "Missing Product Name";
 

@@ -1,4 +1,4 @@
-package com.verygoodbank.tes.service;
+package com.verygoodbank.tes.service.specification;
 
 import org.springframework.web.multipart.MultipartFile;
 

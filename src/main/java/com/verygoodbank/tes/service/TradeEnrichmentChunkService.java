@@ -1,5 +1,7 @@
 package com.verygoodbank.tes.service;
 
+import com.verygoodbank.tes.service.specification.CSVService;
+import com.verygoodbank.tes.service.specification.TradeEnrichmentService;
 import com.verygoodbank.tes.util.ProductLoader;
 import org.springframework.stereotype.Component;
 
